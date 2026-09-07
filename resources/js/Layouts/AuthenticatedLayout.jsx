@@ -30,6 +30,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('employeemodule.index')} active={route().current('employeemodule.*')}>
+                                    Employee Module
+                                </NavLink>
+                                {user.is_admin && <NavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</NavLink>}
                             </div>
                         </div>
 
@@ -134,6 +138,10 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('employeemodule.index')} active={route().current('employeemodule.*')}>
+                            Employee Module
+                        </ResponsiveNavLink>
+                        {user.is_admin && <ResponsiveNavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</ResponsiveNavLink>}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

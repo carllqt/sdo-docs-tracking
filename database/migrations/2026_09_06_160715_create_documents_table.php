@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('tracking_number')->unique();
+            $table->uuid('qr_token')->unique();
+            $table->foreignId('created_by')->constrained('employees')->restrictOnDelete();
+            $table->foreignId('origin_station_id')->constrained('stations')->restrictOnDelete();
+            $table->foreignId('current_station_id')->nullable()->constrained('stations')->restrictOnDelete();
             $table->string('title');
-            $table->text('status');
             $table->timestamps();
         });
     }

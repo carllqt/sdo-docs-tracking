@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
+use App\Models\Station;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,12 +18,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+         $this->call(RoleSeeder::class);
+        $station = Station::updateOrCreate(
+            ['name' => 'Administrative Office'],
+            [
+                'type' => 'sdo_office',
+                'school_code' => null,
+            ],
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('123'),
-        ]);
+        $user = User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin Admin',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+            ],
+        );
+
+        // Assign Spatie role
+        $user->syncRoles(['admin']);
+
+        Employee::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'station_id' => $station->id,
+                'first_name' => 'Admin',
+                'middle_name' => null,
+                'last_name' => 'Admin',
+            ],
+        );
     }
 }
