@@ -7,19 +7,25 @@ use App\Models\Station;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia as Assert;
+use Spatie\Permission\Models\Role;
 
 it('restricts the admin module to admin accounts', function () {
     $this->get(route('adminmodule.index'))->assertRedirect(route('login'));
     $user = User::factory()->create();
     $this->actingAs($user)->get(route('adminmodule.index'))->assertForbidden();
-    $user->fill(['is_admin' => true])->save();
-    expect($user->fresh()->is_admin)->toBeFalse();
-    $user->forceFill(['is_admin' => true])->save();
-    $this->get(route('adminmodule.index'))->assertOk();
+    $this->get(route('dashboard'))->assertInertia(fn (Assert $page) => $page->has('auth.roles', 0));
+    Role::findOrCreate('admin', 'web');
+    $user->assignRole('admin');
+    $this->get(route('adminmodule.index'))->assertOk()
+        ->assertInertia(fn (Assert $page) => $page->where('auth.roles', ['admin']));
+    $user->removeRole('admin');
+    $this->get(route('adminmodule.index'))->assertForbidden();
 });
 
 it('shows all employee documents and separate creation release and receipt events', function () {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $admin = User::factory()->create();
+    Role::findOrCreate('admin', 'web');
+    $admin->assignRole('admin');
     $station = Station::create(['name' => 'School A', 'type' => 'school']);
     $destination = Station::create(['name' => 'Records', 'type' => 'sdo_office']);
     $employees = collect([1, 2])->map(fn ($n) => Employee::create([

@@ -5,14 +5,15 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ header, children, className = '' }) {
     const user = usePage().props.auth.user;
+    const isAdmin = (usePage().props.auth.roles ?? []).includes('admin');
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className={`min-h-screen bg-gray-100 ${className}`}>
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -33,7 +34,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <NavLink href={route('employeemodule.index')} active={route().current('employeemodule.*')}>
                                     Employee Module
                                 </NavLink>
-                                {user.is_admin && <NavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</NavLink>}
+                                {isAdmin && <NavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</NavLink>}
                             </div>
                         </div>
 
@@ -141,7 +142,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         <ResponsiveNavLink href={route('employeemodule.index')} active={route().current('employeemodule.*')}>
                             Employee Module
                         </ResponsiveNavLink>
-                        {user.is_admin && <ResponsiveNavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</ResponsiveNavLink>}
+                        {isAdmin && <ResponsiveNavLink href={route('adminmodule.index')} active={route().current('adminmodule.*')}>Admin Module</ResponsiveNavLink>}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
