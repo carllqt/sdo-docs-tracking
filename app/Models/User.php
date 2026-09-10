@@ -15,6 +15,12 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
+    public function workspaceRoute(): string
+    {
+        return $this->hasRole('admin') ? 'adminmodule.index'
+            : ($this->hasRole('employee') ? 'employeemodule.index' : 'welcome');
+    }
+
     public function employee(): HasOne
     {
         return $this->hasOne(Employee::class);

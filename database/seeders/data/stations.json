@@ -1,0 +1,420 @@
+{
+  "schools": [
+    {
+      "name": "Abuan National High School",
+      "school_code": "305727"
+    },
+    {
+      "name": "Aggassian Elementary School",
+      "school_code": "103384"
+    },
+    {
+      "name": "Alibagu Elementary School",
+      "school_code": "103412"
+    },
+    {
+      "name": "Alibagu National High School",
+      "school_code": "300545"
+    },
+    {
+      "name": "Alinguigan 1st Elementary School",
+      "school_code": "103354"
+    },
+    {
+      "name": "Alinguigan 2nd Integrated School",
+      "school_code": "501839"
+    },
+    {
+      "name": "Alinguigan 3rd Elementary School",
+      "school_code": "103356"
+    },
+    {
+      "name": "Arusip Elementary School",
+      "school_code": "103413"
+    },
+    {
+      "name": "Bagong Silang Elementary School",
+      "school_code": "103414"
+    },
+    {
+      "name": "Bagumbayan Elementary School",
+      "school_code": "103365"
+    },
+    {
+      "name": "Baligatan Elementary School",
+      "school_code": "103415"
+    },
+    {
+      "name": "Balla Elementary School",
+      "school_code": "103357"
+    },
+    {
+      "name": "Ballacong Elementary School",
+      "school_code": "103385"
+    },
+    {
+      "name": "Bangag Elementary School",
+      "school_code": "155505"
+    },
+    {
+      "name": "Baribad Elementary School",
+      "school_code": "103387"
+    },
+    {
+      "name": "Batong Labang Elementary School",
+      "school_code": "103359"
+    },
+    {
+      "name": "Bigao Elementary School",
+      "school_code": "103416"
+    },
+    {
+      "name": "Bliss Elementary School",
+      "school_code": "103417"
+    },
+    {
+      "name": "Cabannungan 1st Elementary School",
+      "school_code": "103419"
+    },
+    {
+      "name": "Cabannungan 2nd Elementary School",
+      "school_code": "103419"
+    },
+    {
+      "name": "Cabeceria 19 Elementary School",
+      "school_code": "103388"
+    },
+    {
+      "name": "Cabeceria 23 Elementary School",
+      "school_code": "103389"
+    },
+    {
+      "name": "Cabeceria 24 Elementary School",
+      "school_code": "103390"
+    },
+    {
+      "name": "Cabeceria 27 Elementary School",
+      "school_code": "103392"
+    },
+    {
+      "name": "Cabeceria 3 Elementary School",
+      "school_code": "103393"
+    },
+    {
+      "name": "Cabeceria 6 Elementary School",
+      "school_code": "103395"
+    },
+    {
+      "name": "Cabeceria 25 Elementary School",
+      "school_code": "103391"
+    },
+    {
+      "name": "Cadu Elementary School",
+      "school_code": "103386"
+    },
+    {
+      "name": "Calindayagan Elementary School",
+      "school_code": "155506"
+    },
+    {
+      "name": "Camunatan Elementary School",
+      "school_code": "103420"
+    },
+    {
+      "name": "Capellan Elementary School",
+      "school_code": "103361"
+    },
+    {
+      "name": "Capo Elementary School",
+      "school_code": "103362"
+    },
+    {
+      "name": "Capugotan Elementary School",
+      "school_code": "103396"
+    },
+    {
+      "name": "Carikkikan Elementary School",
+      "school_code": "103421"
+    },
+    {
+      "name": "Casilagan Elementary School",
+      "school_code": "103397"
+    },
+    {
+      "name": "Dappat Integrated School",
+      "school_code": "501548"
+    },
+    {
+      "name": "Fugu Elementary School",
+      "school_code": "103399"
+    },
+    {
+      "name": "Fuyo Elementary School",
+      "school_code": "103363"
+    },
+    {
+      "name": "Gayong- Gayong Norte Elementary School",
+      "school_code": "103400"
+    },
+    {
+      "name": "Gayong-Gayong Sur Integrated School",
+      "school_code": "500087"
+    },
+    {
+      "name": "Guinatan Elementary School",
+      "school_code": "103422"
+    },
+    {
+      "name": "Ilagan East Integrated SPED Center",
+      "school_code": "500992"
+    },
+    {
+      "name": "Ilagan South CS",
+      "school_code": "103402"
+    },
+    {
+      "name": "Ilagan West CS",
+      "school_code": "103423"
+    },
+    {
+      "name": "Ilagan West NHS",
+      "school_code": "300540"
+    },
+    {
+      "name": "Isabela National High School",
+      "school_code": "300542"
+    },
+    {
+      "name": "Isabela School of Arts and TradElementary School - Main",
+      "school_code": "306105"
+    },
+    {
+      "name": "ISAT-Cabannungan Annex",
+      "school_code": "306149"
+    },
+    {
+      "name": "Lullutan Elementary School",
+      "school_code": "103424"
+    },
+    {
+      "name": "Lupigue Integrated School",
+      "school_code": "500080"
+    },
+    {
+      "name": "Malalam Elementary School",
+      "school_code": "103425"
+    },
+    {
+      "name": "Malasin Elementary School",
+      "school_code": "103426"
+    },
+    {
+      "name": "Manaring Integrated School",
+      "school_code": "500078"
+    },
+    {
+      "name": "Mangcuram Elementary School",
+      "school_code": "103427"
+    },
+    {
+      "name": "Marana 1st Elementary School",
+      "school_code": "103366"
+    },
+    {
+      "name": "Marana 2nd Elementary School",
+      "school_code": "103367"
+    },
+    {
+      "name": "Marana 3rd Elementary School",
+      "school_code": "103368"
+    },
+    {
+      "name": "Minabang Elementary School",
+      "school_code": "103369"
+    },
+    {
+      "name": "Morado Elementary School",
+      "school_code": "103370"
+    },
+    {
+      "name": "Naguilian Baculud Elementary School",
+      "school_code": "103428"
+    },
+    {
+      "name": "Namnama Elementary School",
+      "school_code": "103429"
+    },
+    {
+      "name": "Nanaguan Elementary School",
+      "school_code": "103371"
+    },
+    {
+      "name": "Nangalisan Elementary School",
+      "school_code": "103404"
+    },
+    {
+      "name": "Pasa Elementary School",
+      "school_code": "103372"
+    },
+    {
+      "name": "Pilar Elementary School",
+      "school_code": "103430"
+    },
+    {
+      "name": "Rang-ayan Elementary School",
+      "school_code": "103373"
+    },
+    {
+      "name": "Rang-ayan NHS (Isabela NHS - Rang-ayan Annex)",
+      "school_code": "300543"
+    },
+    {
+      "name": "Sablang Elementary School",
+      "school_code": "103405"
+    },
+    {
+      "name": "Salindingan Elementary School",
+      "school_code": "103431"
+    },
+    {
+      "name": "San Andres Elementary School",
+      "school_code": "103374"
+    },
+    {
+      "name": "San Antonio Elementary School",
+      "school_code": "103406"
+    },
+    {
+      "name": "San Antonio Nat'l. Agro-Ind'l. & Voc'l. HS",
+      "school_code": "300583"
+    },
+    {
+      "name": "San Felipe Elementary School",
+      "school_code": "103432"
+    },
+    {
+      "name": "San Ignacio Elementary School",
+      "school_code": "103433"
+    },
+    {
+      "name": "San Juan Rugao Elementary School",
+      "school_code": "103375"
+    },
+    {
+      "name": "San Lorenzo Integrated School",
+      "school_code": "500018"
+    },
+    {
+      "name": "San Manuel Cabeceria 4 Elementary School",
+      "school_code": "103394"
+    },
+    {
+      "name": "San Pablo-Quimalabasa PS",
+      "school_code": "155519"
+    },
+    {
+      "name": "San Pedro Integrated School",
+      "school_code": "500074"
+    },
+    {
+      "name": "San Rafael Elementary School",
+      "school_code": "103408"
+    },
+    {
+      "name": "San Rafael Nat'l & Voc'l HS (San Antonio NAIVHS-San Rafael Annex)",
+      "school_code": "300584"
+    },
+    {
+      "name": "San Rodrigo Elementary School",
+      "school_code": "103377"
+    },
+    {
+      "name": "Siffu Elementary School",
+      "school_code": "103434"
+    },
+    {
+      "name": "Sindun Bayabo IS",
+      "school_code": "500731"
+    },
+    {
+      "name": "Sindun Highway Elementary",
+      "school_code": "155527"
+    },
+    {
+      "name": "Sindun Maride Elementary School",
+      "school_code": "103411"
+    },
+    {
+      "name": "Sipay Elementary School",
+      "school_code": "103378"
+    },
+    {
+      "name": "Sta. Catalina Elementary School",
+      "school_code": "103379"
+    },
+    {
+      "name": "Sta. Isabel National High School",
+      "school_code": "300602"
+    },
+    {
+      "name": "Sta. Isabel Norte Elementary School",
+      "school_code": "103435"
+    },
+    {
+      "name": "Sta. Isabel Sur Elementary School",
+      "school_code": "103436"
+    },
+    {
+      "name": "Sta. Maria Elementary School",
+      "school_code": "103409"
+    },
+    {
+      "name": "Sta. Victoria Elementary School",
+      "school_code": "103380"
+    },
+    {
+      "name": "Sto. Tomas Elementary School",
+      "school_code": "103437"
+    },
+    {
+      "name": "Talaytay Elementary School",
+      "school_code": "103381"
+    },
+    {
+      "name": "Tangcul-San Isidro Elementary School",
+      "school_code": "103382"
+    },
+    {
+      "name": "Tubo Elementary School",
+      "school_code": "103438"
+    },
+    {
+      "name": "Villa Imelda Elementary School",
+      "school_code": "103383"
+    }
+  ],
+  "sdo_units": [
+    "ASDS",
+    "Accounting Unit",
+    "Administrative Unit",
+    "Budget Unit",
+    "CID",
+    "Cash Unit",
+    "DRRM Unit",
+    "Education Facilities",
+    "General Services",
+    "Health and Nutrition Unit",
+    "Human Resource Development Unit",
+    "Human Resource Management Unit",
+    "ICT Unit",
+    "Learning Resource Management",
+    "Legal Unit",
+    "Planning and Research Unit",
+    "Procurement Unit",
+    "Records Unit",
+    "SDS",
+    "SGOD",
+    "Supply and Property Unit",
+    "YFP Unit"
+  ]
+}

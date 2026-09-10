@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['sdo_office', 'school']);
-            $table->string('school_code')->nullable()->unique();
+            $table->string('school_code')->nullable();
             $table->timestamps();
         });
     }

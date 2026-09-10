@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import EmployeeLayout from '@/Layouts/EmployeeLayout';
 import { Head, useForm } from '@inertiajs/react';
 import CreatedDocumentsTable from './CreatedDocumentsTable';
 import '../../../css/employee.css';
@@ -6,14 +6,14 @@ import '../../../css/employee.css';
 export default function EmployeeModule({ employee, documents }) {
     const form = useForm({ control_number: '', title: '' });
 
-    return <AuthenticatedLayout className="employee-theme">
+    return <EmployeeLayout>
         <Head title="Employee Workspace — SDO Docs">
             <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
         </Head>
         <div className="employee-workspace">
             <header className="employee-hero">
                 <div><p className="employee-kicker">SDO.DOCS / EMPLOYEE WORKSPACE</p><h1>BIG IDEAS.<br /><span>TRACKED HERE.</span></h1><p>Give every document a digital identity.<br />Register it, generate a QR label, and keep it close.</p></div>
-                <div className="employee-total"><span aria-hidden="true">✦</span><strong>{documents.total}</strong><p>YOUR REGISTERED<br />DOCUMENTS</p><span className="employee-total-note">Every document. Connected. ↗</span></div>
+                <div className="employee-total"><span aria-hidden="true">✦</span><strong>{documents?.total ?? 0}</strong><p>YOUR REGISTERED<br />DOCUMENTS</p><span className="employee-total-note">Every document. Connected. ↗</span></div>
             </header>
             {!employee ? <div role="alert" className="employee-notice"><strong>LET’S CONNECT YOUR PROFILE.</strong><p>Your account needs an employee profile and station before you can register documents. Contact your administrator.</p></div> : <div className="employee-grid">
                 <section className="employee-create">
@@ -37,5 +37,5 @@ export default function EmployeeModule({ employee, documents }) {
             </div>}
             <footer className="employee-footer"><strong>SDO<span>.</span>DOCS</strong><span>A little structure. A lot of possibility.</span></footer>
         </div>
-    </AuthenticatedLayout>;
+    </EmployeeLayout>;
 }

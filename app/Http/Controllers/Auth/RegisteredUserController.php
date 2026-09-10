@@ -3,50 +3,40 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Models\RegistrationRequest;
+use App\Models\Station;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): Response
     {
-        return Inertia::render('Welcome', ['authModal' => 'register']);
+        return Inertia::render('LandingPage/Index', [
+            'authModal' => 'register',
+            'stations' => Station::orderBy('name')->get(['id', 'name', 'type', 'school_code']),
+            'registrationSubmitted' => session('registration_submitted', false),
+        ]);
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email', 'unique:for_approval,email'],
+            'station_id' => ['required', 'integer', 'exists:stations,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'email.unique' => 'This email already has an account or a registration request.',
+            'station_id.required' => 'Please select your school or SDO unit.',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        RegistrationRequest::create($validated);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return to_route('register')->with('registration_submitted', true);
     }
 }
+

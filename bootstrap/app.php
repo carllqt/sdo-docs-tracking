@@ -16,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        $middleware->alias(['role' => \Spatie\Permission\Middleware\RoleMiddleware::class]);
+        $middleware->redirectUsersTo(fn (\Illuminate\Http\Request $request) => route($request->user()->workspaceRoute()));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
