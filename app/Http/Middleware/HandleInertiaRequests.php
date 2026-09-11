@@ -34,6 +34,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'roles' => $request->user()?->getRoleNames()->values()->all() ?? [],
+                'employee' => fn () => $request->user()?->employee()
+                    ->select('id', 'user_id', 'first_name', 'middle_name', 'last_name', 'station_id')
+                    ->with('station:id,name')->first(),
             ],
         ];
     }

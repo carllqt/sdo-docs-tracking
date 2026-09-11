@@ -67,7 +67,7 @@ class DocumentController extends Controller
     {
         abort_unless($request->user()->employee()->whereKey($document->created_by)->exists(), 403);
 
-        return Inertia::render('EmployeeModule/Show', [
+        return Inertia::render('EmployeeModule/Partials/Show', [
             'document' => $document->load('originStation:id,name'),
             'qrValue' => route('employeemodule.show', $document->qr_token),
             'saved' => (bool) $request->session()->get('document_saved'),
