@@ -1,6 +1,6 @@
 import Icon from "@/Components/Icon";
 
-export default function DocumentArtwork() {
+const DocumentArtwork = () => {
     return (
         <div
             className="document-art"
@@ -61,6 +61,6 @@ export default function DocumentArtwork() {
             </div>
         </div>
     );
-}
+};
 
-
+export default DocumentArtwork;

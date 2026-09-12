@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\RegistrationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -13,12 +14,25 @@ class AdminModuleController extends Controller
     {
         abort_unless($request->user()->hasRole('admin'), 403);
 
-        $documents = Document::with([
+        $tab = $request->query('tab', 'documents');
+        $tab = in_array($tab, ['documents', 'activity', 'registrations'], true) ? $tab : 'documents';
+        $documentCount = Document::count();
+        $movementCounts = DB::table('document_movements')
+            ->selectRaw('COUNT(released_at) as released, COUNT(received_at) as received')->first();
+        $stats = [
+            'documents' => $documentCount,
+            'activity' => $documentCount + (int) $movementCounts->released + (int) $movementCounts->received,
+            'registrations' => RegistrationRequest::where('status', 'pending')->count(),
+        ];
+
+        $documents = $tab === 'documents' ? Document::with([
             'creator:id,first_name,middle_name,last_name',
             'originStation:id,name',
             'currentStation:id,name',
-        ])->latest('id')->paginate(10, ['*'], 'documents_page')->withQueryString();
+        ])->latest('id')->paginate(10, ['*'], 'documents_page', total: $stats['documents'])->withQueryString() : null;
 
+        $activities = null;
+        if ($tab === 'activity') {
         // Receiving adds an event without replacing the earlier release event.
         $created = DB::table('documents')->selectRaw("id as document_id, 
                             id as event_id, 
@@ -52,7 +66,7 @@ class AdminModuleController extends Controller
             ->leftJoin('stations as f', 'f.id', '=', 'events.from_station_id')
             ->select(
                 'events.*', 
-                'd.tracking_number', 
+                DB::raw('CAST(d.tracking_number AS CHAR) as tracking_number'),
                 'd.title',
                 'e.first_name',
                 'e.middle_name', 
@@ -60,8 +74,20 @@ class AdminModuleController extends Controller
                 's.name as station_name', 
                 'f.name as from_station_name')
             ->orderByDesc('occurred_at')->orderByDesc('event_id')->orderBy('action')
-            ->paginate(10, ['*'], 'activity_page')->withQueryString();
+            ->paginate(10, ['*'], 'activity_page', total: $stats['activity'])->withQueryString();
+        }
 
-        return Inertia::render('AdminModule/Index', compact('documents', 'activities'));
+        $registrations = $tab === 'registrations'
+            ? RegistrationRequest::where('status', 'pending')
+                ->select('id', 'name', 'first_name', 'middle_name', 'last_name', 'email', 'station_id', 'status', 'created_at')
+                ->with('station:id,name,type')->latest('id')->paginate(10, ['*'], 'registrations_page', total: $stats['registrations'])->withQueryString()
+            : null;
+        return Inertia::render('AdminModule/Index', [
+            'tab' => $tab,
+            'stats' => $stats,
+            'documents' => $tab === 'documents' ? $documents : null,
+            'activities' => $tab === 'activity' ? $activities : null,
+            'registrations' => $registrations,
+        ]);
     }
 }

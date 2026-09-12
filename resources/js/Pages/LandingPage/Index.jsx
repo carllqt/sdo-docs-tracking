@@ -29,7 +29,7 @@ const steps = [
     },
 ];
 
-export default function Index({
+const Index = ({
     auth,
     canLogin = true,
     canRegister = true,
@@ -37,7 +37,7 @@ export default function Index({
     status,
     stations = [],
     registrationSubmitted = false,
-}) {
+}) => {
     const pageRef = useRef(null);
 
     useEffect(() => {
@@ -412,5 +412,6 @@ export default function Index({
             )}
         </>
     );
-}
+};
 
+export default Index;

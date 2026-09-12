@@ -3,7 +3,7 @@ import { Dialog, DialogPanel, DialogTitle, Description } from '@headlessui/react
 import { Link, useForm } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
-export default function WelcomeLoginModal({ open, onClose, status }) {
+const WelcomeLoginModal = ({ open, onClose, status }) => {
     const emailInput = useRef(null);
     const [showPassword, setShowPassword] = useState(false);
     const form = useForm({ email: '', password: '', remember: false });
@@ -63,4 +63,6 @@ export default function WelcomeLoginModal({ open, onClose, status }) {
             </DialogPanel>
         </div>
     </Dialog>;
-}
+};
+
+export default WelcomeLoginModal;

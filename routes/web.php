@@ -23,14 +23,34 @@ Route::get('/', function (Request $request) {
 })->name('welcome');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/adminmodule', [AdminModuleController::class, 'index'])->middleware('role:admin')->name('adminmodule.index');
-    Route::get('/documents/{document:qr_token}', [DocumentController::class, 'show'])->middleware('role:employee');
-    Route::get('/employeemodule', [DocumentController::class, 'index'])->middleware('role:employee')->name('employeemodule.index');
-    Route::post('/employeemodule', [DocumentController::class, 'store'])->middleware('throttle:30,1')->middleware('role:employee')->name('employeemodule.store');
-    Route::get('/employeemodule/{document:qr_token}', [DocumentController::class, 'show'])->middleware('role:employee')->name('employeemodule.show');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/adminmodule', [AdminModuleController::class, 'index'])
+        ->middleware('role:admin')
+        ->name('adminmodule.index');
+
+    Route::get('/documents/{document:qr_token}', [DocumentController::class, 'show'])
+        ->middleware('role:employee');
+
+    Route::get('/employeemodule', [DocumentController::class, 'index'])
+        ->middleware('role:employee')
+        ->name('employeemodule.index');
+
+    Route::post('/employeemodule', [DocumentController::class, 'store'])
+        ->middleware('throttle:30,1')
+        ->middleware('role:employee')
+        ->name('employeemodule.store');
+
+    Route::get('/employeemodule/{document:qr_token}', [DocumentController::class, 'show'])
+        ->middleware('role:employee')
+        ->name('employeemodule.show');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

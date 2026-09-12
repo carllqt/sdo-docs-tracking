@@ -5,7 +5,7 @@ import {
     DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator,
 } from '@/Components/ui/dropdown-menu';
 
-export default function RegistrationStationPicker({ stations, value, onChange, error }) {
+const RegistrationStationPicker = ({ stations, value, onChange, error }) => {
     const selected = stations.find(station => String(station.id) === String(value));
     const [portalContainer, setPortalContainer] = useState(null);
 
@@ -31,4 +31,6 @@ export default function RegistrationStationPicker({ stations, value, onChange, e
         {error && <p id="register-station-error" role="alert" className="mt-2 text-xs leading-normal text-[#ffbca4]">{error}</p>}
         {!stations.length && <p className="mt-2 text-xs leading-normal text-[#ffbca4]">No stations available. Please contact your administrator.</p>}
     </div>;
-}
+};
+
+export default RegistrationStationPicker;

@@ -9,7 +9,7 @@ class RegistrationRequest extends Model
 {
     protected $table = 'for_approval';
 
-    protected $fillable = ['name', 'email', 'password', 'station_id'];
+    protected $fillable = ['name', 'first_name', 'middle_name', 'last_name', 'email', 'password', 'station_id'];
 
     protected $hidden = ['password'];
 

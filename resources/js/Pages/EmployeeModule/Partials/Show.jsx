@@ -3,9 +3,9 @@ import { Head, Link } from '@inertiajs/react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useRef } from 'react';
 
-export default function Show({ document, qrValue, saved }) {
+const Show = ({ document, qrValue, saved }) => {
     const qr = useRef(null);
-    function download() {
+    const download = () => {
         const svg = qr.current.querySelector('svg');
         const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)], { type: 'image/svg+xml' }));
         const link = window.document.createElement('a');
@@ -13,7 +13,7 @@ export default function Show({ document, qrValue, saved }) {
         link.download = `${document.tracking_number.replace(/[^a-z0-9_-]/gi, '-')}-qr.svg`;
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
+    };
     return <AuthenticatedLayout header={<h2 className="text-xl font-semibold text-gray-800">Document QR</h2>}>
         <Head title={document.tracking_number} />
         <div className="mx-auto max-w-2xl px-4 py-10">
@@ -30,4 +30,6 @@ export default function Show({ document, qrValue, saved }) {
             </section>
         </div>
     </AuthenticatedLayout>;
-}
+};
+
+export default Show;

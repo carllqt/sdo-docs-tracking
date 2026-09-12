@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\Station;
+use Illuminate\Validation\Rule;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +20,7 @@ class DocumentController extends Controller
 
         return Inertia::render('EmployeeModule/Index', [
             'employee' => $employee,
+            'sdoOffices' => Station::where('type', 'sdo_office')->orderBy('name')->get(['id', 'name']),
             'documents' => $employee
                 ? $employee->documents()->latest('id')->paginate(10)->withQueryString()
                 : null,
@@ -28,15 +31,27 @@ class DocumentController extends Controller
     {
         abort_unless($request->user()->employee()->exists(), 403, 'An employee profile is required.');
 
-        $request->merge([
-            'control_number' => is_string($request->control_number) ? strtoupper(trim($request->control_number)) : $request->control_number,
-        ]);
+        $controlNumber = $request->input('control_number');
+        if (is_string($controlNumber)) {
+            $controlNumber = trim($controlNumber);
+            if (preg_match('/\A[0-9]+\z/', $controlNumber)) {
+                $controlNumber = ltrim($controlNumber, '0') ?: '0';
+            }
+        }
+        $request->merge(['control_number' => $controlNumber]);
         $data = $request->validate([
-            'control_number' => ['required', 'string', 'max:100', 'regex:/\A[A-Z0-9][A-Z0-9._\/-]*\z/', 'unique:documents,tracking_number'],
+            'control_number' => ['bail', 'required', 'string', 'max:20', 'regex:/\A[0-9]+\z/',
+                function ($attribute, $value, $fail) {
+                    if (strlen($value) === 20 && strcmp($value, '18446744073709551615') > 0) {
+                        $fail('The control number must not exceed 18446744073709551615.');
+                    }
+                },
+                'unique:documents,tracking_number'],
             'title' => ['required', 'string', 'max:255'],
+            'to_station_id' => ['required', 'integer', Rule::exists('stations', 'id')->where('type', 'sdo_office')],
         ], [
             'control_number.unique' => 'This control number is already registered.',
-            'control_number.regex' => 'Use letters, numbers, hyphens, slashes, dots or underscores without spaces.',
+            'control_number.regex' => 'Use numbers only (0–9), without letters, spaces, or symbols.',
         ]);
 
         try {
@@ -44,13 +59,22 @@ class DocumentController extends Controller
                 $employee = $request->user()->employee()->lockForUpdate()->first();
                 abort_unless($employee && $employee->station()->exists(), 403, 'An employee station is required.');
 
-                return $employee->documents()->create([
+                $document = $employee->documents()->create([
                     'tracking_number' => $data['control_number'],
                     'title' => $data['title'],
                     'qr_token' => (string) Str::uuid(),
                     'origin_station_id' => $employee->station_id,
                     'current_station_id' => $employee->station_id,
                 ]);
+
+                $document->movements()->create([
+                    'from_station_id' => $employee->station_id,
+                    'to_station_id' => $data['to_station_id'],
+                    'released_by' => $employee->id,
+                    'released_at' => now(),
+                ]);
+
+                return $document;
             }, 3);
         } catch (UniqueConstraintViolationException $exception) {
             // The unique index also protects simultaneous submissions.

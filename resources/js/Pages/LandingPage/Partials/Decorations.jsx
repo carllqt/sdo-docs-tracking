@@ -1,4 +1,4 @@
-export default function Decorations() {
+const Decorations = () => {
     return (
         <div className="welcome-decorations" aria-hidden="true">
             <span className="deco deco-star">✦</span>
@@ -9,6 +9,6 @@ export default function Decorations() {
             <span className="deco deco-zig">〰</span>
         </div>
     );
-}
+};
 
-
+export default Decorations;

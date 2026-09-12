@@ -11,10 +11,23 @@ import { useRef, useState } from "react";
 
 const fields = [
     {
-        name: "name",
-        label: "Full name",
-        autocomplete: "name",
-        placeholder: "Your full name",
+        name: "first_name",
+        label: "First name",
+        autocomplete: "given-name",
+        placeholder: "Your first name",
+    },
+    {
+        name: "middle_name",
+        label: "Middle name (optional)",
+        autocomplete: "additional-name",
+        placeholder: "Your middle name",
+        optional: true,
+    },
+    {
+        name: "last_name",
+        label: "Last name",
+        autocomplete: "family-name",
+        placeholder: "Your last name",
     },
     {
         name: "email",
@@ -39,17 +52,19 @@ const fields = [
     },
 ];
 
-export default function WelcomeRegisterModal({
+const WelcomeRegisterModal = ({
     open,
     onClose,
     onLogin,
     stations = [],
     submitted = false,
-}) {
+}) => {
     const nameInput = useRef(null);
     const [showPasswords, setShowPasswords] = useState(false);
     const form = useForm({
-        name: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
         email: "",
         station_id: "",
         password: "",
@@ -162,7 +177,7 @@ export default function WelcomeRegisterModal({
                                     </label>
                                     <input
                                         ref={
-                                            field.name === "name"
+                                            field.name === "first_name"
                                                 ? nameInput
                                                 : undefined
                                         }
@@ -176,7 +191,7 @@ export default function WelcomeRegisterModal({
                                                 : field.type || "text"
                                         }
                                         autoComplete={field.autocomplete}
-                                        required
+                                        required={!field.optional}
                                         maxLength={
                                             field.secret ? undefined : 255
                                         }
@@ -267,4 +282,6 @@ export default function WelcomeRegisterModal({
             </div>
         </Dialog>
     );
-}
+};
+
+export default WelcomeRegisterModal;

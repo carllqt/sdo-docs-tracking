@@ -11,6 +11,9 @@ return new class extends Migration
         Schema::create('for_approval', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('first_name')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('station_id')->constrained()->restrictOnDelete();

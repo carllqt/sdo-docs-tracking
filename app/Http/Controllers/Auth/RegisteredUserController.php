@@ -25,7 +25,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:80'],
+            'middle_name' => ['nullable', 'string', 'max:80'],
+            'last_name' => ['required', 'string', 'max:80'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email', 'unique:for_approval,email'],
             'station_id' => ['required', 'integer', 'exists:stations,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -34,6 +36,9 @@ class RegisteredUserController extends Controller
             'station_id.required' => 'Please select your school or SDO unit.',
         ]);
 
+        $validated['name'] = implode(' ', array_filter([
+            $validated['first_name'], $validated['middle_name'] ?? null, $validated['last_name'],
+        ], fn ($part) => $part !== null && $part !== ''));
         RegistrationRequest::create($validated);
 
         return to_route('register')->with('registration_submitted', true);

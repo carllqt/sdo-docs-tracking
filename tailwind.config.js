@@ -12,6 +12,15 @@ export default {
 
     theme: {
         extend: {
+            keyframes: {
+                'admin-table-enter': {
+                    from: { opacity: '0', transform: 'translateY(12px)' },
+                    to: { opacity: '1', transform: 'translateY(0)' },
+                },
+            },
+            animation: {
+                'admin-table-enter': 'admin-table-enter 280ms ease-out both',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

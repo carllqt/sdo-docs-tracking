@@ -24,6 +24,7 @@ class Document extends Model
     protected function casts(): array
     {
         return [
+            'tracking_number' => 'string',
             'completed_at' => 'datetime',
         ];
     }
